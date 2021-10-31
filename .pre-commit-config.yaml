@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v4.0.1
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
@@ -8,6 +8,8 @@ repos:
           - csv
           - svg
     -   id: trailing-whitespace
+    - id: name-tests-test
+      args: [ "--django" ]
 -   repo: https://github.com/psf/black
     rev: 21.7b0
     hooks:
@@ -25,6 +27,15 @@ repos:
     rev: v0.910
     hooks:
     -   id: mypy
+-   repo: https://github.com/pycqa/pylint
+    rev: v2.11.1
+    hooks:
+    - id: pylint
+      exclude: "[a-zA-Z]*/(migrations)/(.)*"
+      args: [ "--load-plugins=pylint_django", "--django-settings-module=photofriends.settings" ]
+      additional_dependencies: [
+          pylint_django
+      ]
 -   repo: https://github.com/PyCQA/bandit
     rev: 1.7.0
     hooks:

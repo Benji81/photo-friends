@@ -67,10 +67,10 @@ class Upload(models.Model):
             # set to a default thumbnail
             raise Exception("Could not create thumbnail - is the file type valid?")
 
-        super(Upload, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def make_thumbnail(self):
-
+        """At save time, create a thumbnail of a photo"""
         image = Image.open(self.photo)
         image.thumbnail(settings.THUMB_SIZE, Image.ANTIALIAS)
 

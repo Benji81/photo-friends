@@ -12,7 +12,7 @@ from app.models import Album, Upload
 
 
 class AlbumCreateView(CreateView):
-    """View to create a album a auto generate an UUID"""
+    """View to create an album a auto generate an UUID"""
 
     model = Album
     fields = ["name", "creator"]
@@ -25,6 +25,8 @@ class AlbumCreateView(CreateView):
 
 
 class AlbumDetailView(DetailView, FormView):
+    """View to get an album information and actions on it"""
+
     model = Album
     pk_url_kwarg = "id"
     queryset = Album.objects.all()
@@ -53,8 +55,9 @@ class AlbumDetailView(DetailView, FormView):
         return reverse("album", kwargs={"id": self.kwargs[self.pk_url_kwarg]})
 
 
-def download(request, id):
-    album = Album.objects.get(id=id)
+def download(request, album_id):
+    """Function to download a given album as a big zip"""
+    album = Album.objects.get(id=album_id)
     uploads = Upload.objects.filter(album=album)
 
     with tempfile.SpooledTemporaryFile() as tmp:
