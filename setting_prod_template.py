@@ -1,5 +1,6 @@
 import os
 
+# pylint: disable=E0402,W0401
 from .settings import *  # noqa: F403
 
 
@@ -13,6 +14,7 @@ USE_X_FORWARDED_HOST = True
 SECRET_KEY = "ADD YOUR PRODUCTION SECRET KEY HERE"  # nosec
 
 # Database
+# pylint: disable=E0602
 DATABASES["default"]["NAME"] = os.path.join("/data", "db.sqlite3")  # noqa: F405
 
 # Mail configuration
