@@ -23,18 +23,21 @@ class Album(models.Model):
     name = models.CharField(
         max_length=64,
         verbose_name="Album name",
-        help_text="Album name",
+        # help_text="Album name",
     )
     creator = models.CharField(
         max_length=64,
         verbose_name="Creator",
-        help_text="Your name",
+        # help_text="Your name",
     )
     created_at = models.DateTimeField(
         default=get_utc_now,
         help_text="Date in format ISO8601. Example: 2020-03-03T18:31:01.915000Z.",
     )
     enabled = models.BooleanField(verbose_name="Album enabled", default=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Upload(models.Model):
@@ -53,9 +56,17 @@ class Upload(models.Model):
     thumbnail = models.ImageField(upload_to="thumbs", editable=False)
 
     created_at = models.DateTimeField(
+        blank=True,
+        null=True,
+        db_index=True,
+        help_text="Date in format ISO8601. Example: 2020-03-03T18:31:01.915000Z.",
+    )
+
+    uploaded_at = models.DateTimeField(
         default=get_utc_now,
         help_text="Date in format ISO8601. Example: 2020-03-03T18:31:01.915000Z.",
     )
+
     uploader = models.CharField(
         max_length=64,
         verbose_name="Name",

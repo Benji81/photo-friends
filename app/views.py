@@ -1,8 +1,10 @@
+from datetime import datetime
 from os.path import basename
 import tempfile
 import zipfile
 
 import PIL
+from PIL import Image
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, FormView
@@ -44,8 +46,19 @@ class AlbumDetailView(DetailView, FormView):
 
         for uploaded_file in files:
             try:
+                exif = Image.open(uploaded_file).getexif()
+                exif_date = exif.get(306) or exif.get(36867) or exif.get(36868)
+                # exif_offset = exif.get(36880) or exif.get(36881) or exif.get(36882)
+                parse_date = (
+                    datetime.strptime(exif_date, "%Y:%m:%d %H:%M:%S")
+                    if exif_date
+                    else None
+                )
                 Upload.objects.create(
-                    photo=uploaded_file, album=album, uploader=form.data["id_uploader"]
+                    photo=uploaded_file,
+                    album=album,
+                    uploader=form.data["id_uploader"],
+                    created_at=parse_date,
                 )
             except PIL.UnidentifiedImageError:
                 pass
