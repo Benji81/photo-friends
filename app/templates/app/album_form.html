@@ -2,9 +2,9 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="col-md-4 offset-md-4 text-center">
-            <div class="form-box some-shadow">
+    <div class="container vertical-center">
+        <div class="col-md-4 offset-md-4 text-center ">
+            <div class="card some-shadow card-custom primary-border card-padding">
                 <div class="text-center">
                     <h1>
                         <i class="fa fa-link primary-color"></i></h1>
@@ -15,7 +15,7 @@
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     <div class="text-center">
-                        <input class="btn primary-bg-color" type="submit" value="Create" />
+                        <input class="btn button-custom-light" type="submit" value="Create" />
                     </div>
                 </form>
             </div>

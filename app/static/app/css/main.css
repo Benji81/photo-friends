@@ -1,0 +1,73 @@
+body {
+    /*background-color: #df49b4;*/
+}
+
+.container {
+    background-color: #fff;
+}
+
+a:hover {
+    color: #aaa;
+    text-decoration: none;
+}
+a {
+    color: #6ec1e4;
+}
+
+.some-shadow {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.primary-color {
+    color: #df49b4
+}
+
+.primary-bg {
+    background-color: #df49b4
+}
+
+.custom-icon {
+    padding: 1rem 1rem 0 1rem;
+    cursor:pointer;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
+.button-custom {
+    background-color: #df49b4;
+}
+
+.button-custom-light {
+    color: #df49b4;
+    border-color: #df49b4;
+    background-color: #fff;
+}
+.button-custom-light:hover {
+    color: #fff;
+    border-color: #df49b4;
+    background-color: #df49b4;
+}
+
+.card-custom {
+    border: 2px solid #df49b4;
+    margin: 2em;
+    width: 100%
+}
+
+.card-padding {
+    padding: 2em;
+}
+
+.thumbnail {
+    margin-bottom: 2em;
+}
+
+#thumbnails {
+    margin-top: 3em;
+}

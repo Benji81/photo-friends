@@ -10,186 +10,22 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="{% static "app/css/main.css" %}">
+
     <link rel="shortcut icon" type="image/png" href="{% static 'app/images/favicon.ico' %}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "/app/images/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "/app/images/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "/app/images/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "/app/images/site.webmanifest" %}">
+    <link rel="mask-icon" href="{% static "/app/images/safari-pinned-tab.svg"%}" color="#5bbad5">
+
     <title>{% block title %}Photo Friends{% endblock %}</title>
-
-    <style>
-        a:hover {
-            color: #aaa;
-            text-decoration: none;
-        }
-        a{
-            color: #6ec1e4;
-        }
-        .primary-color{
-            color: #6ec1e4;
-        }
-
-        .danger-color{
-            color: #ff999b;
-        }
-
-        .ok-color{
-            color: #b2ffad;
-        }
-
-        .primary-bg-color{
-            background-color: #6ec1e4;
-            color: #fff;
-        }
-
-        .danger-bg-color{
-            background-color: #ff999b;
-            color: #fff;
-        }
-        .form-box {
-            border: solid 1px #ccc;
-            border-radius: 10px;
-            margin: 50px;
-            padding:10px;
-        }
-        .some-shadow {
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-        }
-
-        .navbar-icon-top .navbar-nav .nav-link > .fa {
-            position: relative;
-            width: 36px;
-            font-size: 24px;
-        }
-
-        .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
-            font-size: 0.75rem;
-            position: absolute;
-            right: 0;
-            font-family: sans-serif;
-        }
-
-        .navbar-icon-top .navbar-nav .nav-link > .fa {
-            top: 3px;
-            line-height: 12px;
-        }
-
-        .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
-            top: -10px;
-        }
-
-        @media (min-width: 576px) {
-            .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
-                text-align: center;
-                display: table-cell;
-                height: 70px;
-                vertical-align: middle;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-
-            .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
-                display: block;
-                width: 48px;
-                margin: 2px auto 4px auto;
-                top: 0;
-                line-height: 24px;
-            }
-
-            .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa > .badge {
-                top: -7px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
-                text-align: center;
-                display: table-cell;
-                height: 70px;
-                vertical-align: middle;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-
-            .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa {
-                display: block;
-                width: 48px;
-                margin: 2px auto 4px auto;
-                top: 0;
-                line-height: 24px;
-            }
-
-            .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa > .badge {
-                top: -7px;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
-                text-align: center;
-                display: table-cell;
-                height: 70px;
-                vertical-align: middle;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-
-            .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa {
-                display: block;
-                width: 48px;
-                margin: 2px auto 4px auto;
-                top: 0;
-                line-height: 24px;
-            }
-
-            .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa > .badge {
-                top: -7px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
-                text-align: center;
-                display: table-cell;
-                height: 70px;
-                vertical-align: middle;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-
-            .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa {
-                display: block;
-                width: 48px;
-                margin: 2px auto 4px auto;
-                top: 0;
-                line-height: 24px;
-            }
-
-            .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa > .badge {
-                top: -7px;
-            }
-        }
-        .csv-icon {
-            color: #5e7be0;
-            background-color: #fff;
-            padding: 1rem;
-            cursor:pointer;
-        }
-
-    </style>
 
     {% block headers %}{% endblock %}
 </head>
 
 <body>
-<nav class="navbar navbar-icon-top navbar-expand-lg navbar-light bg-light some-shadow">
-    <a href="{% url 'index' %}"><h1><i class="fa fa-cloud-upload fa-lg"></i> Photo Friends</h1></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-    </div>
-</nav>
-<div id="main-content" style="padding-top: 1%">
+<div id="main-content">
     {% block content %}{% endblock %}
 </div>
 </body>

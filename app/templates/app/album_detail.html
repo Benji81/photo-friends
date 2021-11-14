@@ -6,15 +6,15 @@
 
         <div class="col-md-4 offset-md-4">
             <div class="text-center">
-                OBJ {{ object }}
+                <h1><span class="primary-color">Welcome to album:</span> {{ object.name }}</h1>
             </div>
 
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-12 text-center">
-                <div class="card">
-                    <div class="card-header">
-                        Please select one or more photo to upload
+            <div class="col-md-4 col-sm-12 text-center  d-flex align-items-stretch">
+                <div class="card some-shadow card-custom">
+                    <div class="card-header primary-bg">
+                        Upload your photos
                     </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data"{% comment %} onsubmit="showProgress();"{% endcomment %}>
@@ -24,12 +24,15 @@
                                 <label for="id_uploader">Name</label>
                                 <input type="text" name="uploader" title="Uploader" required
                                        id="id_uploader" class="form-control"/>
-                                <input type="file" name="files" multiple="" class="form-control-file" title="" required
+                                <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+                                       name="files" multiple="" class="form-control-file" title="" required
                                        id="id_files" onchange="uploadFile();" hidden/>
-                                <label id="upload-label" for="id_files">
+                                <label id="upload-label" for="id_files" class="primary-color">
                                     <span class="text-center">
-                                        <i class="fas fa-file-csv fa-5x csv-icon"> Add Photos</i>
+                                        <i class="far fa-plus-square fa-5x custom-icon"></i>
                                     </span>
+                                    <br/>
+                                    Add Photos
                                 </label>
 
                                 <progress id="progressBar" class="progress is-info" value="0" max="100" style="width:100%;"></progress>
@@ -44,39 +47,42 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 text-center">
-                <div class="card">
-                    <div class="card-header">
-                        Download the Album
+
+            <div class="col-md-4 col-sm-12 text-center d-flex align-self-center">
+                <div class="card some-shadow card-custom">
+                    <div class="card-header primary-bg">
+                        Share this album
                     </div>
                     <div class="card-body">
-                        <a href="{% url "download" object.id %}" role="button" class="btn btn-outline-primary">Download</a>
+                        <button id="copy" type="button" class="btn button-custom-light" onclick="copyLink();">Copy link to clipboard</button>
+                        <button id="share" type="button" class="btn button-custom-light">Share</button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-12 text-center">
-                <div class="card">
-                    <div class="card-header">
-                        Link to this Album
+            <div class="col-md-4 col-sm-12 text-center d-flex align-self-center">
+                <div class="card some-shadow card-custom">
+                    <div class="card-header primary-bg">
+                        Download the Album
                     </div>
                     <div class="card-body">
-                        <button id="copy" onclick="copyLink();">Copy</button>
-                        <button id="share">Share</button>
+                        <a href="{% url "download" object.id %}" role="button" class="btn button-custom-light">Download</a>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
-    <div class="container-fluid">
+    <div id="thumbnails" class="container">
         <div class="row row-cols-auto">
             {% for upload in uploads %}
-                <div class="col-md-2 col-xs-6 col-sm-6 text-center">
-                    <a href="{{ upload.photo.url }}" class="">
-                        <img class="img-fluid img-thumbnail" src="{{upload.thumbnail.url}}" alt="Photo">
+                <div class="col-md-2 col-xs-6 col-sm-6 text-center thumbnail">
+                    <a href="{{ upload.photo.url }}">
+                        <img class="img-fluid img-thumbnail some-shadow" src="{{upload.thumbnail.url}}" alt="Photo">
                     </a>
                     <div class="uploader">
-                        From {{ upload.uploader }}
+                        <small>{{ upload.uploader }}</small>
                     </div>
                 </div>
             {% endfor %}
