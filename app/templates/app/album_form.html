@@ -2,23 +2,23 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <div class="container vertical-center">
-        <div class="col-md-4 offset-md-4 text-center ">
-            <div class="card some-shadow card-custom primary-border card-padding">
-                <div class="text-center">
-                    <h1>
-                        <i class="fa fa-link primary-color"></i></h1>
-                    <h1>Photo Friends</h1>
-                </div>
-
-                <form method="post">
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    <div class="text-center">
-                        <input class="btn button-custom-light" type="submit" value="Create" />
+    <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <div class="row">
+                <div class="card some-shadow primary-border card-border">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h1><i class="fa fa-link primary-color"></i></h1>
+                            <h1>Photo Friends</h1>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="text-center">
+                                <input class="btn button-custom-light" type="submit" value="Create" />
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
+                </div>
         </div>
     </div>
 {% endblock %}
