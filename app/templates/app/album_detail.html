@@ -1,5 +1,5 @@
 {% extends "app/base.html" %}
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 i18n l10n %}
 
 {% block content %}
     <div class="container">
@@ -75,18 +75,29 @@
         </div>
     </div>
     <div id="thumbnails" class="container">
-        <div class="row row-cols-auto">
-            {% for upload in uploads %}
-                <div class="col-md-2 col-xs-6 col-sm-6 text-center thumbnail">
-                    <a href="{{ upload.photo.url }}">
-                        <img class="img-fluid img-thumbnail some-shadow" src="{{upload.thumbnail.url}}" alt="Photo">
-                    </a>
-                    <div class="uploader">
-                        <small>{{ upload.uploader }}</small>
+        {% for date, uploads_list in uploads.items %}
+            <div class="text-center">
+                <span class="date-group">
+                    {%  if date %}
+                        {{ date|localize }}
+                    {% else %}
+                        {% trans "No date" %}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="row row-cols-auto text-center d-flex justify-content-center">
+                {% for upload in uploads_list %}
+                    <div class="col-md-2 col-xs-6 col-sm-6 text-center thumbnail">
+                        <a href="{{ upload.photo.url }}">
+                            <img class="img-fluid img-thumbnail some-shadow" src="{{upload.thumbnail.url}}" alt="Photo">
+                        </a>
+                        <div class="uploader">
+                            <small>{{ upload.uploader }}</small>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 
 

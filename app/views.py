@@ -1,4 +1,5 @@
-from datetime import datetime
+from collections import defaultdict
+import datetime
 from os.path import basename
 import tempfile
 import zipfile
@@ -7,6 +8,7 @@ import PIL
 from PIL import Image
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 from django.views.generic import CreateView, DetailView, FormView
 
 from app.forms import UploadFileForm
@@ -37,7 +39,17 @@ class AlbumDetailView(DetailView, FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         album = Album.objects.get(id=self.kwargs[self.pk_url_kwarg])
-        context["uploads"] = Upload.objects.filter(album=album)
+        uploads = Upload.objects.filter(album=album).order_by("created_at")
+        # context["uploads"] = uploads
+        uploads_by_date = defaultdict(list)
+        for upload in uploads:
+            uploads_by_date[
+                upload.created_at.date() if upload.created_at else None
+            ].append(upload)
+        context["uploads"] = dict(
+            uploads_by_date
+        )  # Django template cannot iter on defaultdict
+
         return context
 
     def form_valid(self, form):
@@ -48,9 +60,11 @@ class AlbumDetailView(DetailView, FormView):
             try:
                 exif = Image.open(uploaded_file).getexif()
                 exif_date = exif.get(306) or exif.get(36867) or exif.get(36868)
-                # exif_offset = exif.get(36880) or exif.get(36881) or exif.get(36882)
+                # we could get timezone with exif_offset = exif.get(36880) or exif.get(36881) or exif.get(36882)
                 parse_date = (
-                    datetime.strptime(exif_date, "%Y:%m:%d %H:%M:%S")
+                    datetime.datetime.strptime(exif_date, "%Y:%m:%d %H:%M:%S").replace(
+                        tzinfo=timezone.get_current_timezone()
+                    )
                     if exif_date
                     else None
                 )
