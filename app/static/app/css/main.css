@@ -76,7 +76,9 @@ a {
 }
 
 .date-group {
-    /*background-color: #aaaaaa;*/
-    /*border: solid 1px #df49b4;*/
     font-weight: bold;
+}
+
+.progress-color {
+    background-color: #df49b4;
 }

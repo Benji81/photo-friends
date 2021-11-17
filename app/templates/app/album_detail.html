@@ -34,16 +34,15 @@
                                     <br/>
                                     Add Photos
                                 </label>
-
-                                <progress id="progressBar" class="progress is-info" value="0" max="100" style="width:100%;"></progress>
-                                <div id="status"></div>
                             </div>
                         </form>
+
                         <div class="progress" id="progress" style="display: none">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                                 role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
-                                 style="width: 100%">Uploading</div>
+                            <div class="progress-bar progress-color" id="progress-bar"
+                                 role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                                 style="width: 0"></div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -121,8 +120,8 @@
             }
             const ajax = new XMLHttpRequest();
             ajax.upload.addEventListener("progress", progressHandler, false);
+            ajax.upload.addEventListener("loadstart", uploadStart, false);
             ajax.onload = function(){
-                _("progressBar").value = 0;
                 window.location.href = ajax.responseURL;
             };
             ajax.addEventListener("error", errorHandler, false);
@@ -131,10 +130,18 @@
             ajax.send(formdata);
         }
 
+        function uploadStart() {
+            _("progress").style.display = "block";
+        }
+
         function progressHandler(event) {
             const percent = (event.loaded / event.total) * 100;
-            _("progressBar").value = Math.round(percent);
-            _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+            _("progress-bar").style.width = Math.round(percent) + "%";
+            if (percent === 100){
+                _("progress-bar").innerHTML = Math.round(percent) + "% {% trans "computing thumbnails..." %}";
+            }else{
+                _("progress-bar").innerHTML = Math.round(percent) + "%";
+            }
         }
 
         function errorHandler(event) {
