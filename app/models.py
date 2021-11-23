@@ -40,6 +40,11 @@ class Album(models.Model):
         return self.name
 
 
+def get_upload_path(instance, filename):
+    """generate a path which contains the album UID"""
+    return os.path.join("photos", str(instance.album.id), filename)
+
+
 class Upload(models.Model):
     """Model for uploaded file for non-logged used"""
 
@@ -51,7 +56,7 @@ class Upload(models.Model):
     photo = models.ImageField(
         verbose_name="Image to upload",
         help_text="Select one or more images to upload",
-        upload_to="photos",
+        upload_to=get_upload_path,
     )
     thumbnail = models.ImageField(upload_to="thumbs", editable=False)
 
