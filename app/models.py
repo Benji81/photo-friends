@@ -75,6 +75,7 @@ class Upload(models.Model):
     uploader = models.CharField(
         max_length=64,
         verbose_name="Name",
+        help_text="Your name",
     )
 
     def save(self, *args, **kwargs):
