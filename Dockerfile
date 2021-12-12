@@ -20,7 +20,7 @@ ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 RUN apt-get update -qq && apt-get install -qq -yy libpython3-dev  ca-certificates gcc zlib1g-dev libc6-dev libjpeg-dev curl libpq-dev libmagic1 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p $POETRY_PATH $VENV_PATH /var/www /var/www/photofriends/data /var/www/photofriends/static && \
+RUN mkdir -p $POETRY_PATH $VENV_PATH /var/www /var/www/photofriends/db /var/www/photofriends/static /var/www/photofriends/media && \
     chown -hR  www-data:www-data $POETRY_PATH $VENV_PATH /var/www/
 
 WORKDIR /var/www/photofriends
@@ -34,12 +34,11 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 COPY poetry.lock pyproject.toml /var/www/photofriends/
 RUN poetry install --no-dev --no-interaction --no-ansi -vvv
 
-COPY configs /var/www/photofriends/configs
 COPY photofriends/ /var/www/photofriends/photofriends
-COPY mainapp/ /var/www/photofriends/mainapp
+COPY app/ /var/www/photofriends/app
 COPY entrypoint.sh manage.py /var/www/photofriends/
 
-VOLUME [ "/var/www/photofriends/static", "/var/www/photofriends/data"]
+VOLUME [ "/var/www/photofriends/static", "/var/www/photofriends/db", "/var/www/photofriends/media"]
 
 ENTRYPOINT ["./entrypoint.sh"]
 

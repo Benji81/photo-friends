@@ -4,7 +4,7 @@ export VENV_PATH=/opt/venv
 export PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 
 cd /var/www/photofriends
-if [ $INIT -eq 1 ]; then
+if [ $INIT == "1" ]; then
   poetry run python manage.py migrate
   poetry run python manage.py collectstatic --noinput
 fi
