@@ -1,0 +1,47 @@
+upstream django {
+        server 127.0.0.1:9000;
+}
+
+server {
+        root /var/www/html;
+        server_name {{groups['main'][0]}};
+
+        location / {
+                proxy_set_header X-Forwarded-Host $host:$server_port;
+                proxy_set_header X-Forwarded-Server $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto https;
+                proxy_pass http://django;
+
+                client_max_body_size 1G;
+        }
+
+        location /static/ {
+                alias /var/www/photofriends/static/;
+        }
+
+        location /media/ {
+            alias /var/www/photofriends/media/;
+        }
+
+        ## Deny illegal Host headers
+        if ($host !~* ^({{groups['main'][0]}})$ ) {
+                return 444;
+        }
+
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/{{groups['main'][0]}}/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/{{groups['main'][0]}}/privkey.pem; # managed by Certbot
+}
+
+
+server {
+        if ($host = {{groups['main'][0]}}) {
+                return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+        listen 80;
+
+        server_name {{groups['main'][0]}};
+        return 404; # managed by Certbot
+}
