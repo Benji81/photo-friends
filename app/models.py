@@ -41,8 +41,12 @@ class Album(models.Model):
 
 
 def get_upload_path(instance, filename):
-    """generate a path which contains the album UID"""
+    """generate a path for photo which contains the album UID"""
     return os.path.join("photos", str(instance.album.id), filename)
+
+def get_thumbnail_path(instance, filename):
+    """generate a path for thumbnail which contains the album UID"""
+    return os.path.join("thumbnails", str(instance.album.id), filename)
 
 
 class Upload(models.Model):
@@ -58,7 +62,10 @@ class Upload(models.Model):
         help_text="Select one or more images to upload",
         upload_to=get_upload_path,
     )
-    thumbnail = models.ImageField(upload_to="thumbs", editable=False)
+    thumbnail = models.ImageField(
+        editable=False,
+        upload_to=get_thumbnail_path,
+    )
 
     created_at = models.DateTimeField(
         blank=True,
