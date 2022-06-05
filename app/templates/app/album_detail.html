@@ -152,8 +152,9 @@
             _("status").innerHTML = "Upload Aborted";
         }
 
+        let shareText="{% blocktrans with creator=object.name album=object.creator %}PhotoFriends - You have been invited to contribute to album '{{ creator }}' by '{{ album }}' to regroup your photos. You can upload and download photos at: {% endblocktrans %}";
         function copyLink() {
-            navigator.clipboard.writeText(window.location.href);
+            navigator.clipboard.writeText(shareText + window.location.href);
         }
 
         const shareButton = _("share");
