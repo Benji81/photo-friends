@@ -92,6 +92,7 @@
         cache_from:
           - python:3.9-slim
       source: build
+      force_source: yes
 
 - hosts: main
   tags:
