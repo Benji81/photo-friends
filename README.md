@@ -21,7 +21,33 @@ python manage.py runserver
 
 This project relies on Docker-compose and is designed to have a Nginx / Apache reverse proxy on the host
 
-### Prerequisite
+2 solutions to deploy, Ansible or manual. In both create first create a `.env` (in ansible directory if you choose Ansible) 
+
+
+```env
+STATIC_ROOT=/var/www/photofriends/static
+MEDIA_ROOT=/var/www/photofriends/media
+DB_ROOT=/var/www/photofriends/db
+DEBUG=False
+ADMINS=name,you@something.com
+EMAIL_HOST_USER=YOURLOGIN
+EMAIL_HOST_PASSWORD=YOUPASSWORD
+STATIC_URL=https://DOMAIN_NAME/static/
+DJANGO_SUPERUSER_USERNAME=ADMIN_LOGIN
+DJANGO_SUPERUSER_PASSWORD=ADMIN_PASSWORD
+DJANGO_SUPERUSER_EMAIL=admin@DOMAIN_NAME
+```
+
+### Simple ansible deployment
+- Go in `ansible` directory
+- Edit inventory.ini file to set the ight hostname
+- ansible-playbook install_photo-friends.yaml -i inventory.ini
+
+### Manual deployment
+
+Go in your VM
+
+#### Prerequisite
 
 Docker and docker-compose
 ```bash
@@ -30,7 +56,7 @@ sudo adduser ubuntu docker
 # logout and log again
 ```
 
-### Production installation
+#### Production installation
 
 Install and configure nginx
 ```bash
@@ -52,7 +78,9 @@ Add reverse proxy and statics configurations into `/etc/nginx/sites-available/de
         location /static/ {
                 alias /var/www/photofriends/static/;
         }
-
+         location /media/ {
+                alias /var/www/photofriends/media/;
+        }
 ```
 
 Restart nginx and prepare static directory mount point for Docker
@@ -69,21 +97,7 @@ cd photo-friends
 ./build-docker.sh
 ```
 
-Add a production `.env` file in photo-friends directory
-```env
-STATIC_ROOT=/var/www/photofriends/static
-MEDIA_ROOT=/var/www/photofriends/media
-DB_ROOT=/var/www/photofriends/db
-DEBUG=False
-SECRET_KEY=YYYYYYYY
-ADMINS=you@somethin.com
-EMAIL_HOST_USER=YOURLOGIN
-EMAIL_HOST_PASSWORD=YOUPASSWORD
-STATIC_URL=https://DOMAIN_NAME/static/
-DJANGO_SUPERUSER_USERNAME=ADMIN_LOGIN
-DJANGO_SUPERUSER_PASSWORD=ADMIN_PASSWORD
-DJANGO_SUPERUSER_EMAIL=admin@DOMAIN_NAME
-```
+
 
 Start docker-compose and add a user
 ```bash

@@ -1,0 +1,117 @@
+- hosts: main
+  tags:
+  - apt
+
+  tasks:
+  - name: Upgrade all apt packages
+    apt: upgrade=dist force_apt_get=yes
+    become: true
+
+  - name: Install list of packages
+    apt:
+      pkg:
+        - apt-transport-https
+        - psmisc
+        - ufw
+        - docker-compose
+        - nginx
+        - python3-certbot-nginx
+      state: present
+      update_cache: yes
+      force_apt_get: true
+    become: true
+
+- hosts: main
+  tags:
+      - cert
+  tasks:
+  - name: Certificate generation
+    command: certbot certonly --non-interactive -d {{item}} --standalone -m benjamin@timel.fr --agree-tos --pre-hook "/etc/init.d/nginx stop" --post-hook "/etc/init.d/nginx start"
+    with_items:
+      - "{{groups['main']}}"
+    become: true
+
+- hosts: main
+  tags:
+    - nginx
+  tasks:
+  - name: Set up nginx configuration
+    template:
+      src: "role/common/files/configs/nginx-photo.conf.jinja2"
+      dest: "/etc/nginx/sites-enabled/photo.conf"
+    become: true
+  - name: Remove defautl conf
+    ansible.builtin.file:
+      path: /etc/nginx/sites-enabled/default
+      state: absent
+    become: true
+
+- hosts: main
+  tags:
+    - docker
+  tasks:
+  - name: Add user to docker group
+    user: name="{{ ansible_user }}" groups=docker append=yes
+    become: true
+
+  - name: Reset ssh connection to allow user changes to affect ansible user
+    meta: reset_connection
+
+  - service: name=docker state=restarted
+    become: true
+
+  - name: Prepare volume static
+    ansible.builtin.file:
+      path: /var/www/photofriends/static
+      state: directory
+      owner: www-data
+      group: www-data
+    become: true
+
+  - name: Prepare volume medias
+    ansible.builtin.file:
+      path: /var/www/photofriends/media
+      state: directory
+      owner: www-data
+      group: www-data
+    become: true
+
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: 'git@github.com:Benji81/photo-friends.git'
+      dest: /home/{{ ansible_user }}/photo-friends
+      version: master
+      accept_hostkey: yes
+
+  - name: Build image using cache source
+    community.docker.docker_image:
+      name: photofriends
+      build:
+        path: photo-friends
+        # Use as cache source for building myimage
+        cache_from:
+          - python:3.9-slim
+      source: build
+
+- hosts: main
+  tags:
+    - compose
+  tasks:
+    - name: Copying docker-compose file
+      copy:
+        src: role/common/files/configs/docker-compose.yaml
+        dest: /home/{{ ansible_user }}/docker-compose.yaml
+    - name: Copying .env file
+      copy:
+        src: .env
+        dest: /home/{{ ansible_user }}/.env
+
+    - name: Stop docker compose
+      docker_compose:
+        project_src: /home/{{ansible_user}}
+        state: absent
+
+    - name: Run docker compose
+      docker_compose:
+        project_src: /home/{{ansible_user}}
+        state: present
