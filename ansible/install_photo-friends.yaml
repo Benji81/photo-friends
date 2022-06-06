@@ -40,10 +40,15 @@
       src: "role/common/files/configs/nginx-photo.conf.jinja2"
       dest: "/etc/nginx/sites-enabled/photo.conf"
     become: true
+
   - name: Remove defautl conf
     ansible.builtin.file:
       path: /etc/nginx/sites-enabled/default
       state: absent
+    become: true
+
+  - name: Restart nginx
+    service: name=nginx state=restarted
     become: true
 
 - hosts: main
