@@ -161,7 +161,8 @@
         shareButton.addEventListener('click', event => {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Sharing Album {{ object.name }}',
+                    title: 'Photo Friends',
+                    text: shareText,
                     url: window.location.href
                 }).then(() => {
                 })
