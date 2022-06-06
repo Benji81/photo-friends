@@ -34,10 +34,9 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 COPY poetry.lock pyproject.toml /var/www/photofriends/
 RUN poetry install --no-dev --no-interaction --no-ansi -vvv
 
-COPY photofriends/ /var/www/photofriends/photofriends
-COPY app/ /var/www/photofriends/app
-COPY entrypoint.sh manage.py /var/www/photofriends/
-
+COPY --chown=www-data:www-data photofriends/ /var/www/photofriends/photofriends
+COPY --chown=www-data:www-data  app/ /var/www/photofriends/app
+COPY --chown=www-data:www-data  entrypoint.sh manage.py /var/www/photofriends/
 RUN poetry run python manage.py compilemessages
 
 VOLUME [ "/var/www/photofriends/static", "/var/www/photofriends/db", "/var/www/photofriends/media"]
