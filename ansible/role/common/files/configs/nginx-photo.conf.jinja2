@@ -3,7 +3,6 @@ upstream django {
 }
 
 server {
-        root /var/www/html;
         server_name {{groups['main'][0]}};
 
         location / {
