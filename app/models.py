@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import models
 from django.dispatch import receiver
-
+from django.utils.translation import ugettext_lazy as _
 
 def get_utc_now() -> datetime:
     """Return the current UTC time when called."""
@@ -22,12 +22,12 @@ class Album(models.Model):
 
     name = models.CharField(
         max_length=64,
-        verbose_name="Album name",
+        verbose_name=_("Album name"),
         # help_text="Album name",
     )
     creator = models.CharField(
         max_length=64,
-        verbose_name="Creator",
+        verbose_name=_("Creator"),
         # help_text="Your name",
     )
     created_at = models.DateTimeField(
@@ -81,8 +81,7 @@ class Upload(models.Model):
 
     uploader = models.CharField(
         max_length=64,
-        verbose_name="Name",
-        help_text="Your name",
+        verbose_name=_("Name"),
     )
 
     def save(self, *args, **kwargs):
