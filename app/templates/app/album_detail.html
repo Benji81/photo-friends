@@ -3,18 +3,16 @@
 
 {% block content %}
     <div class="container">
-
         <div class="col-md-4 offset-md-4">
             <div class="text-center">
-                <h1><span class="primary-color">Welcome to album:</span> {{ object.name }}</h1>
+                <h1><span class="primary-color">{%  trans "Welcome to album:"%}</span> {{ object.name }}</h1>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-4 col-sm-12 text-center  d-flex align-items-stretch">
                 <div class="card some-shadow card-custom">
                     <div class="card-header primary-bg">
-                        Upload your photos
+                        {% trans "Upload your photos" %}
                     </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data"{% comment %} onsubmit="showProgress();"{% endcomment %}>
@@ -23,7 +21,7 @@
 
                                 <label for="id_uploader">Name</label>
                                 <input type="text" name="uploader" title="Uploader" required
-                                       id="id_uploader" class="form-control" placeholder="Your name"/>
+                                       id="id_uploader" class="form-control" placeholder="{% trans "Your name" %}"/>
                                 <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
                                        name="files" multiple="" class="form-control-file" title="" required
                                        id="id_files" onchange="uploadFile();" hidden/>
@@ -32,7 +30,7 @@
                                         <i class="far fa-plus-square fa-5x custom-icon"></i>
                                     </span>
                                     <br/>
-                                    Add Photos
+                                    {% trans "Add Photos" %}
                                 </label>
                             </div>
                         </form>
@@ -50,11 +48,11 @@
             <div class="col-md-4 col-sm-12 text-center d-flex align-self-center">
                 <div class="card some-shadow card-custom">
                     <div class="card-header primary-bg">
-                        Share this album
+                        {% trans "Share this album" %}
                     </div>
                     <div class="card-body">
-                        <button id="copy" type="button" class="btn button-custom-light" onclick="copyLink();">Copy link to clipboard</button>
-                        <button id="share" type="button" class="btn button-custom-light">Share</button>
+                        <button id="copy" type="button" class="btn button-custom-light" onclick="copyLink();">{% trans "Copy link to clipboard" %}</button>
+                        <button id="share" type="button" class="btn button-custom-light">{% trans Share %}</button>
                     </div>
                 </div>
             </div>
@@ -62,10 +60,10 @@
             <div class="col-md-4 col-sm-12 text-center d-flex align-self-center">
                 <div class="card some-shadow card-custom">
                     <div class="card-header primary-bg">
-                        Download the Album
+                        {% trans "Download the Album" %}
                     </div>
                     <div class="card-body">
-                        <a href="{% url "download" object.id %}" role="button" class="btn button-custom-light">Download</a>
+                        <a href="{% url "download" object.id %}" role="button" class="btn button-custom-light">{% trans "Download" %}</a>
                     </div>
                 </div>
             </div>

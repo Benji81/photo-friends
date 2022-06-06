@@ -1,5 +1,5 @@
 {% extends "app/base.html" %}
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 i18n l10n %}
 
 {% block content %}
     <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
@@ -8,13 +8,13 @@
                     <div class="card-body">
                         <div class="text-center">
                             <h1><i class="fa fa-link primary-color"></i></h1>
-                            <h1>Photo Friends</h1>
+                            <h1>{% trans "Photo Friends" %}</h1>
                         </div>
                         <form method="post">
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             <div class="text-center">
-                                <input class="btn button-custom-light" type="submit" value="Create" />
+                                <input class="btn button-custom-light" type="submit" value="{% trans "Create" %}" />
                             </div>
                         </form>
                     </div>

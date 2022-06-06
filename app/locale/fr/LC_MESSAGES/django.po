@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-06 15:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app/models.py:25
+msgid "Album name"
+msgstr "Nom de l'album"
+
+#: app/models.py:30
+msgid "Creator"
+msgstr "Créateur"
+
+#: app/models.py:84
+msgid "Name"
+msgstr "Votre nom"
+
+#: app/templates/app/album_detail.html:8
+msgid "Welcome to album:"
+msgstr "Bienvenue dans l'album :"
+
+#: app/templates/app/album_detail.html:15
+msgid "Upload your photos"
+msgstr "Uploadez vos photos"
+
+#: app/templates/app/album_detail.html:25
+msgid "Your name"
+msgstr "Votre nom"
+
+#: app/templates/app/album_detail.html:34
+msgid "Add Photos"
+msgstr "Ajouter des photos"
+
+#: app/templates/app/album_detail.html:52
+msgid "Share this album"
+msgstr "Partager l'album"
+
+#: app/templates/app/album_detail.html:55
+msgid "Copy link to clipboard"
+msgstr "Copier le lien dans le presse-papier"
+
+#: app/templates/app/album_detail.html:64
+msgid "Download the Album"
+msgstr "Télécharger l'album"
+
+#: app/templates/app/album_detail.html:67
+msgid "Download"
+msgstr "Télécharger"
+
+#: app/templates/app/album_detail.html:82
+msgid "No date"
+msgstr "Pas de date"
+
+#: app/templates/app/album_detail.html:140
+msgid "computing thumbnails..."
+msgstr "Calcul des miniatures"
+
+#: app/templates/app/album_detail.html:154
+#, python-format
+msgid ""
+"PhotoFriends - You have been invited to contribute to album '%(creator)s' by "
+"'%(album)s' to regroup your photos. You can upload and download photos at: "
+msgstr ""
+"PhotoFriends - Vous avez été invité(e) à contribuer à l'album '%(creator)s' "
+"par'%(album)s' pour regrouper vos photos. Vous pouvez les uploader et les "
+"récupérer ici : "
+
+#: app/templates/app/album_form.html:11
+msgid "Photo Friends"
+msgstr "Photo Friends"
+
+#: app/templates/app/album_form.html:17
+msgid "Create"
+msgstr "Créer"
