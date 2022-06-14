@@ -5,14 +5,12 @@ services:
     image: photofriends
     restart: always
     ports:
-      - "9000:9000"
+      - "127.0.0.1:9000:9000"
     command: gunicorn photofriends.wsgi:application --bind 0.0.0.0:9000 --workers 4 --timeout 1800 --access-logfile=- --error-logfile=-
     volumes:
       - "db:/$DB_ROOT"
       - "/var/www/photofriends/media:/$MEDIA_ROOT"
       - "/var/www/photofriends/static:/$STATIC_ROOT"
-    environment:
-      INIT: "1"
     env_file:
       - .env
     networks:
