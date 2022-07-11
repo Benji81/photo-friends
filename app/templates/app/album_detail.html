@@ -52,15 +52,19 @@
                     </div>
                     <div class="card-body">
                         <button id="copy" type="button" class="btn button-custom-light" onclick="copyLink();">
-                            <div>
-                                <span class="text-center">
-                                    <i class="fa-solid fa-share-nodes fa-5x custom-icon"></i>
-                                </span>
-                                <br/>
-                                {% trans "Copy link to clipboard" %}
-                            </div></button>
-                        <button id="share" type="button" class="btn button-custom-light">{% trans Share %}</button>
-
+                            <span class="text-center">
+                                <i class="fa-solid fa-share-nodes fa-5x custom-icon"></i>
+                            </span>
+                            <br/>
+                            {% trans "Copy link to clipboard" %}
+                        </button>
+                        <button id="share" type="button" class="btn button-custom-light">
+                            <span class="text-center">
+                                <i class="fa-solid fa-share-nodes fa-5x custom-icon"></i>
+                            </span>
+                            <br/>
+                            {% trans "Share" %}
+                        </button>
                     </div>
                 </div>
             </div>

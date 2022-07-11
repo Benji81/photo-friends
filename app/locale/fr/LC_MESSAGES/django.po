@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 15:13+0200\n"
+"POT-Creation-Date: 2022-07-11 23:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "Bienvenue dans l'album :"
 msgid "Upload your photos"
 msgstr "Uploadez vos photos"
 
-#: app/templates/app/album_detail.html:25
+#: app/templates/app/album_detail.html:24
 msgid "Your name"
 msgstr "Votre nom"
 
@@ -50,27 +50,31 @@ msgstr "Ajouter des photos"
 msgid "Share this album"
 msgstr "Partager l'album"
 
-#: app/templates/app/album_detail.html:55
+#: app/templates/app/album_detail.html:60
 msgid "Copy link to clipboard"
 msgstr "Copier le lien dans le presse-papier"
 
-#: app/templates/app/album_detail.html:64
+#: app/templates/app/album_detail.html:67
+msgid "Share"
+msgstr "Partager"
+
+#: app/templates/app/album_detail.html:76
 msgid "Download the Album"
 msgstr "Télécharger l'album"
 
-#: app/templates/app/album_detail.html:67
+#: app/templates/app/album_detail.html:79
 msgid "Download"
 msgstr "Télécharger"
 
-#: app/templates/app/album_detail.html:82
+#: app/templates/app/album_detail.html:94
 msgid "No date"
 msgstr "Pas de date"
 
-#: app/templates/app/album_detail.html:140
+#: app/templates/app/album_detail.html:169
 msgid "computing thumbnails..."
 msgstr "Calcul des miniatures"
 
-#: app/templates/app/album_detail.html:154
+#: app/templates/app/album_detail.html:183
 #, python-format
 msgid ""
 "PhotoFriends - You have been invited to contribute to album '%(creator)s' by "
