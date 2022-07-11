@@ -18,14 +18,14 @@
                         <form method="post" enctype="multipart/form-data"{% comment %} onsubmit="showProgress();"{% endcomment %}>
                             {% csrf_token %}
                             <div class="form-group">
-
                                 <label for="id_uploader">Name</label>
                                 <input type="text" name="uploader" title="Uploader" required
-                                       id="id_uploader" class="form-control" placeholder="{% trans "Your name" %}"/>
+                                       id="id_uploader" class="form-control" placeholder="{% trans "Your name" %}"
+                                       oninput="checkUploader();"/>
                                 <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
                                        name="files" multiple="" class="form-control-file" title="" required
-                                       id="id_files" onchange="uploadFile();" hidden/>
-                                <label id="upload-label" for="id_files" class="primary-color">
+                                       id="id_files" onchange="uploadFile();" hidden disabled/>
+                                <label id="upload-label" for="id_files" class="primary-color disabled">
                                     <span class="text-center">
                                         <i class="far fa-plus-square fa-5x custom-icon"></i>
                                     </span>
@@ -51,8 +51,16 @@
                         {% trans "Share this album" %}
                     </div>
                     <div class="card-body">
-                        <button id="copy" type="button" class="btn button-custom-light" onclick="copyLink();">{% trans "Copy link to clipboard" %}</button>
+                        <button id="copy" type="button" class="btn button-custom-light" onclick="copyLink();">
+                            <div>
+                                <span class="text-center">
+                                    <i class="fa-solid fa-share-nodes fa-5x custom-icon"></i>
+                                </span>
+                                <br/>
+                                {% trans "Copy link to clipboard" %}
+                            </div></button>
                         <button id="share" type="button" class="btn button-custom-light">{% trans Share %}</button>
+
                     </div>
                 </div>
             </div>
@@ -103,6 +111,19 @@
 
         function _(el) {
             return document.getElementById(el);
+        }
+
+        function checkUploader(){
+            if (_("id_uploader").value === ""){
+                _("id_files").disabled = true;
+                _("id_files").classList.add("disabled");
+                _("upload-label").classList.add("disabled");
+
+            }else{
+                _("id_files").disabled = false;
+                _("id_files").classList.remove("disabled");
+                _("upload-label").classList.remove("disabled");
+            }
         }
 
         function uploadFile() {
@@ -177,5 +198,7 @@
             _("copy").hidden = false;
             _("share").hidden = true;
         }
+
+        checkUploader();
     </script>
 {% endblock %}
