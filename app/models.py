@@ -94,8 +94,6 @@ class Upload(models.Model):
 
     def make_thumbnail(self):
         """At save time, create a thumbnail of a photo"""
-        image = Image.open(self.photo)
-        image.thumbnail(settings.THUMB_SIZE, Image.ANTIALIAS)
 
         thumb_name, thumb_extension = os.path.splitext(self.photo.name)
         thumb_extension = thumb_extension.lower()
@@ -108,11 +106,15 @@ class Upload(models.Model):
             file_type = "GIF"
         elif thumb_extension == ".png":
             file_type = "PNG"
+        elif thumb_extension in {".avi", ".mp4", ".mov"}:
+            return True  # TODO generate special thumbnail for movie
         else:
             return False  # Unrecognized file type
 
         # Save thumbnail to in-memory file as StringIO
         temp_thumb = BytesIO()
+        image = Image.open(self.photo)
+        image.thumbnail(settings.THUMB_SIZE, Image.ANTIALIAS)
         image.save(temp_thumb, file_type)
         temp_thumb.seek(0)
 

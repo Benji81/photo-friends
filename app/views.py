@@ -58,6 +58,7 @@ class AlbumDetailView(DetailView, FormView):
         album = self.get_object()
 
         for uploaded_file in files:
+            parse_date = None
             try:
                 exif = Image.open(uploaded_file).getexif()
                 exif_date = exif.get(306) or exif.get(36867) or exif.get(36868)
@@ -69,14 +70,14 @@ class AlbumDetailView(DetailView, FormView):
                     if exif_date
                     else None
                 )
-                Upload.objects.create(
-                    photo=uploaded_file,
-                    album=album,
-                    uploader=form.data["id_uploader"],
-                    created_at=parse_date,
-                )
             except PIL.UnidentifiedImageError:
                 pass
+            Upload.objects.create(
+                photo=uploaded_file,
+                album=album,
+                uploader=form.data["id_uploader"],
+                created_at=parse_date,
+            )
         return super().form_valid(form)
 
     def get_success_url(self) -> str:

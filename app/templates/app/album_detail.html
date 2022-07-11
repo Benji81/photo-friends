@@ -1,5 +1,5 @@
 {% extends "app/base.html" %}
-{% load django_bootstrap5 i18n l10n %}
+{% load django_bootstrap5 i18n l10n static %}
 
 {% block content %}
     <div class="container">
@@ -22,7 +22,7 @@
                                 <input type="text" name="uploader" title="Uploader" required
                                        id="id_uploader" class="form-control" placeholder="{% trans "Your name" %}"
                                        oninput="checkUploader();"/>
-                                <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+                                <input type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*, .mp4, .avi, .mov"
                                        name="files" multiple="" class="form-control-file" title="" required
                                        id="id_files" onchange="uploadFile();" hidden disabled/>
                                 <label id="upload-label" for="id_files" class="primary-color disabled">
@@ -94,7 +94,11 @@
                 {% for upload in uploads_list %}
                     <div class="col-md-2 col-xs-6 col-sm-6 text-center thumbnail">
                         <a href="{{ upload.photo.url }}">
-                            <img class="img-fluid img-thumbnail some-shadow" src="{{upload.thumbnail.url}}" alt="Photo">
+                            {% if upload.thumbnail %}
+                                <img class="img-fluid img-thumbnail some-shadow" src="{{upload.thumbnail.url}}" alt="Photo">
+                                {% else %}
+                                <i class="fa-solid fa-film fa-5x video "></i>
+                            {% endif %}
                         </a>
                         <div class="uploader">
                             <small>{{ upload.uploader }}</small>
