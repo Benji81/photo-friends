@@ -13,7 +13,8 @@ class AlbumAdmin(admin.ModelAdmin):
 class UploadAdmin(admin.ModelAdmin):
     """Better admin page for Uploads"""
 
-    list_display = ["album", "uploaded_at", "created_at"]
+    list_display = ["album", "uploaded_at", "created_at", "uploader"]
+    list_filter = ["album", "uploaded_at", "created_at", "uploader"]
 
 
 admin.site.register(Upload, UploadAdmin)
