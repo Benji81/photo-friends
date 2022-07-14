@@ -83,6 +83,30 @@
 
         </div>
     </div>
+
+    {% if uploaders %}
+        <div id="uploaders" class="container">
+            <div class="col-md-4 col-sm-12 offset-md-4 text-center d-flex align-self-center">
+                <table class="table">
+                    <thead class="uploaders_table_header">
+                    <tr>
+                        <th scope="col">{% trans "Uploaders" %}</th>
+                        <th scope="col">{% trans "Photos" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for uploader in uploaders %}
+                        <tr>
+                            <td>{{  uploader.uploader }}</td>
+                            <td>{{  uploader.total }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
     <div id="thumbnails" class="container">
         {% for date, uploads_list in uploads.items %}
             <div class="text-center">

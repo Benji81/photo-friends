@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 23:38+0200\n"
+"POT-Creation-Date: 2022-07-14 12:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "Nom de l'album"
 msgid "Creator"
 msgstr "Créateur"
 
-#: app/models.py:84
+#: app/models.py:85
 msgid "Name"
 msgstr "Votre nom"
 
@@ -67,14 +67,22 @@ msgid "Download"
 msgstr "Télécharger"
 
 #: app/templates/app/album_detail.html:94
+msgid "Uploaders"
+msgstr "Contributeurs"
+
+#: app/templates/app/album_detail.html:95
+msgid "Photos"
+msgstr "Photos"
+
+#: app/templates/app/album_detail.html:118
 msgid "No date"
 msgstr "Pas de date"
 
-#: app/templates/app/album_detail.html:169
+#: app/templates/app/album_detail.html:193
 msgid "computing thumbnails..."
 msgstr "Calcul des miniatures"
 
-#: app/templates/app/album_detail.html:183
+#: app/templates/app/album_detail.html:207
 #, python-format
 msgid ""
 "PhotoFriends - You have been invited to contribute to album '%(album)s' by "

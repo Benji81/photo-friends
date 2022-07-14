@@ -44,6 +44,7 @@ def get_upload_path(instance, filename):
     """generate a path for photo which contains the album UID"""
     return os.path.join("photos", str(instance.album.id), filename)
 
+
 def get_thumbnail_path(instance, filename):
     """generate a path for thumbnail which contains the album UID"""
     return os.path.join("thumbnails", str(instance.album.id), filename)

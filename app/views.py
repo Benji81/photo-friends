@@ -50,7 +50,7 @@ class AlbumDetailView(DetailView, FormView):
         context["uploads"] = dict(
             uploads_by_date
         )  # Django template cannot iter on defaultdict
-        context["uploaders"] = Upload.objects.all().values('uploader').annotate(total=Count('uploader'))
+        context["uploaders"] = Upload.objects.filter(album=album).values('uploader').annotate(total=Count('uploader'))
         return context
 
     def form_valid(self, form):
