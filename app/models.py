@@ -135,6 +135,6 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     if instance.photo:
         if os.path.isfile(instance.photo.path):
             os.remove(instance.photo.path)
-    if instance.thumb:
-        if os.path.isfile(instance.thumb.path):
-            os.remove(instance.thumb.path)
+    if instance.thumbnail:
+        if os.path.isfile(instance.thumbnail.path):
+            os.remove(instance.thumbnail.path)
