@@ -107,7 +107,7 @@ class Upload(models.Model):
         elif thumb_extension == ".png":
             file_type = "PNG"
         elif thumb_extension in {".avi", ".mp4", ".mov"}:
-            return True  # TODO generate special thumbnail for movie
+            return True  # need to generate special thumbnail for movie
         else:
             return False  # Unrecognized file type
 
