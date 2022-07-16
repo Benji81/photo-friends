@@ -1,13 +1,14 @@
+import os
 from collections import defaultdict
 import datetime
 from os.path import basename
-import tempfile
 import zipfile
 
 import PIL
 from PIL import Image
+from django.conf import settings
 from django.db.models import Count
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect, FileResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import CreateView, DetailView, FormView
@@ -84,22 +85,39 @@ class AlbumDetailView(DetailView, FormView):
         return reverse("album", kwargs={"id": self.kwargs[self.pk_url_kwarg]})
 
 
-def download(request, album_id):
-    """Function to download a given album as a big zip"""
-    album = Album.objects.get(id=album_id)
-    uploads = Upload.objects.filter(album=album)
+def get_last_album_update(album):
+    return Upload.objects.filter(album=album).latest("uploaded_at").uploaded_at
 
-    with tempfile.TemporaryFile() as tmp:
-        with zipfile.ZipFile(tmp, "w", compression=zipfile.ZIP_STORED, allowZip64=True) as archive:
+
+def create_zip(zip_path, album):
+    uploads = Upload.objects.filter(album=album)
+    with open(zip_path, 'wb') as zip_file:
+        with zipfile.ZipFile(zip_file, "w", compression=zipfile.ZIP_STORED, allowZip64=True) as archive:
             for upload in uploads:
                 archive.write(
                     upload.photo.path, f"{album.name}/{basename(upload.photo.path)}"
                 )
-        tmp.seek(0)
-        return HttpResponse(
-            tmp.read(),
-            headers={
-                "Content-Type": "application/x-zip-compressed",
-                "Content-Disposition": f'attachment; filename="{album.name}.zip"',
-            },
-        )
+
+
+def download(request, album_id):
+    """Function to download a given album as a big zip"""
+    album = Album.objects.get(id=album_id)
+
+    zip_dir = os.path.join(settings.MEDIA_ROOT, "zip")
+    os.makedirs(zip_dir, exist_ok=True)
+    zip_path = os.path.join(zip_dir, album_id + ".zip")
+    last_update = get_last_album_update(album)
+    if os.path.exists(zip_path):
+        zip_date = datetime.datetime.fromtimestamp(os.stat(zip_path).st_mtime, tz=timezone.utc)
+        if zip_date < last_update:
+            create_zip(zip_path, album)
+    else:
+        create_zip(zip_path, album)
+    return FileResponse(
+        open(zip_path, 'rb'),
+        filename=f"{album.name}.zip",
+        headers={
+            "Content-Type": "application/x-zip-compressed",
+            "Content-Disposition": f'attachment; filename="{album.name}.zip"',
+        },
+    )
