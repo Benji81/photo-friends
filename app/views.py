@@ -89,7 +89,7 @@ def download(request, album_id):
     album = Album.objects.get(id=album_id)
     uploads = Upload.objects.filter(album=album)
 
-    with tempfile.SpooledTemporaryFile() as tmp:
+    with tempfile.TemporaryFile() as tmp:
         with zipfile.ZipFile(tmp, "w", compression=zipfile.ZIP_STORED, allowZip64=True) as archive:
             for upload in uploads:
                 archive.write(
