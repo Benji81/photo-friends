@@ -90,7 +90,7 @@ def download(request, album_id):
     uploads = Upload.objects.filter(album=album)
 
     with tempfile.SpooledTemporaryFile() as tmp:
-        with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as archive:
+        with zipfile.ZipFile(tmp, "w", compression=zipfile.ZIP_STORED, allowZip64=True) as archive:
             for upload in uploads:
                 archive.write(
                     upload.photo.path, f"{album.name}/{basename(upload.photo.path)}"
