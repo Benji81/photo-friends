@@ -83,7 +83,7 @@
 
   - name: Git checkout
     ansible.builtin.git:
-      repo: 'git@github.com:Benji81/photo-friends.git'
+      repo: 'https://github.com/Benji81/photo-friends.git'
       dest: /home/{{ ansible_user }}/photo-friends
       version: master
       accept_hostkey: yes
