@@ -25,7 +25,7 @@ RUN mkdir -p $POETRY_PATH $VENV_PATH /var/www /var/www/photofriends/db /var/www/
 
 WORKDIR /var/www/photofriends
 USER www-data
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - \
+RUN curl -sSL https://install.python-poetry.org | python3 - \
     && mv /var/www/.poetry/* $POETRY_PATH/ \
     && poetry --version \
     && python -m venv $VENV_PATH \
