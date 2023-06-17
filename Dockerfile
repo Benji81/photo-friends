@@ -8,11 +8,11 @@ ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random \
     PIP_NO_CACHE_DIR=off \
-    POETRY_PATH=/opt/poetry \
+    POETRY_PATH=/var/www/.local \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     VENV_PATH=/opt/venv \
-    POETRY_VERSION=1.1.5
+    POETRY_VERSION=1.5.1
 
 ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 
@@ -26,7 +26,6 @@ RUN mkdir -p $POETRY_PATH $VENV_PATH /var/www /var/www/photofriends/db /var/www/
 WORKDIR /var/www/photofriends
 USER www-data
 RUN curl -sSL https://install.python-poetry.org | python3 - \
-    && mv /var/www/.poetry/* $POETRY_PATH/ \
     && poetry --version \
     && python -m venv $VENV_PATH \
     && poetry config virtualenvs.create false
