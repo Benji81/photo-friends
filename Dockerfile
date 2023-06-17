@@ -21,14 +21,14 @@ RUN apt-get update -qq && apt-get install -qq -yy libpython3-dev  ca-certificate
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p $POETRY_PATH $VENV_PATH /var/www /var/www/photofriends/db /var/www/photofriends/static /var/www/photofriends/media && \
-    chown -hR  www-data:www-data $POETRY_PATH $VENV_PATH /var/www/
+    chown -hR  www-data:www-data $POETRY_PATH $VENV_PATH /var/www/ /usr/local/lib/python3.9/site-packages/
 
-WORKDIR /var/www/photofriends
 USER www-data
+WORKDIR /var/www/photofriends
 RUN curl -sSL https://install.python-poetry.org | python3 - \
     && poetry --version \
     && python -m venv $VENV_PATH \
-    && poetry config virtualenvs.create false
+    && poetry config virtualenvs.create true
 
 COPY poetry.lock pyproject.toml /var/www/photofriends/
 RUN poetry install --no-dev --no-interaction --no-ansi -vvv
