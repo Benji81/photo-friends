@@ -41,6 +41,7 @@ DJANGO_SUPERUSER_EMAIL=admin@DOMAIN_NAME
 ### Simple ansible deployment
 - Go in `ansible` directory
 - Edit inventory.ini file to set the ight hostname
+- Clean old ssh keys `ssh-keygen -f "/home/benjamin/.ssh/known_hosts" -R "THE_HOSTNAME"`
 - ansible-playbook install_photo-friends.yaml -i inventory.ini
 
 ### Manual deployment
