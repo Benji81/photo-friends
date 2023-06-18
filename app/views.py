@@ -4,14 +4,15 @@ import os
 from os.path import basename
 import zipfile
 
-import PIL
-from PIL import Image
 from django.conf import settings
 from django.db.models import Count
 from django.http import FileResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import CreateView, DetailView, FormView
+
+import PIL
+from PIL import Image
 
 from app.forms import UploadFileForm
 from app.models import Album, Upload

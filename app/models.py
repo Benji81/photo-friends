@@ -3,12 +3,13 @@ from io import BytesIO
 import os
 import uuid
 
-from PIL import Image
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+
+from PIL import Image
 
 
 def get_utc_now() -> datetime:
