@@ -40,7 +40,16 @@ jobs:
     - name: migration
       run: poetry run ./manage.py makemigrations -v 3 --check --dry-run
 
-    - name: linter
+    - name: black
+      run: poetry run black --diff --check .
+
+    - name: isort
+      run: poetry run isort -cq -df .
+
+    - name: flake8
+      run: poetry run flake8 --show-source .
+
+    - name: pylint
       run: poetry run pylint app/ photofriends/
 
     - name: security

@@ -9,7 +9,6 @@ import app.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []
@@ -29,15 +28,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(
-                        help_text="Album name", max_length=64, verbose_name="Album name"
-                    ),
+                    models.CharField(help_text="Album name", max_length=64, verbose_name="Album name"),
                 ),
                 (
                     "creator",
-                    models.CharField(
-                        help_text="Your name", max_length=64, verbose_name="Creator"
-                    ),
+                    models.CharField(help_text="Your name", max_length=64, verbose_name="Creator"),
                 ),
                 (
                     "created_at",

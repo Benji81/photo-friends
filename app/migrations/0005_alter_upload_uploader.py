@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('app', '0004_alter_upload_thumbnail'),
+        ("app", "0004_alter_upload_thumbnail"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='upload',
-            name='uploader',
-            field=models.CharField(max_length=64, verbose_name='Name'),
+            model_name="upload",
+            name="uploader",
+            field=models.CharField(max_length=64, verbose_name="Name"),
         ),
     ]

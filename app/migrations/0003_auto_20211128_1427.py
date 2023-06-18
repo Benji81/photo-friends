@@ -6,7 +6,6 @@ import app.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("app", "0002_auto_20211114_1648"),
     ]
@@ -24,8 +23,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="upload",
             name="uploader",
-            field=models.CharField(
-                help_text="Your name", max_length=64, verbose_name="Name"
-            ),
+            field=models.CharField(help_text="Your name", max_length=64, verbose_name="Name"),
         ),
     ]

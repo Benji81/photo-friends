@@ -10,6 +10,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
+
 def get_utc_now() -> datetime:
     """Return the current UTC time when called."""
     return datetime.now(timezone.utc)
@@ -36,7 +37,7 @@ class Album(models.Model):
     )
     enabled = models.BooleanField(verbose_name="Album enabled", default=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -86,10 +87,9 @@ class Upload(models.Model):
     )
 
     def save(self, *args, **kwargs):
-
         if not self.make_thumbnail():
             # set to a default thumbnail
-            raise Exception("Could not create thumbnail - is the file type valid?")
+            raise TypeError("Could not create thumbnail - is the file type valid?")
 
         super().save(*args, **kwargs)
 

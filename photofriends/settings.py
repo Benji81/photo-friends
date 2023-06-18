@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import random
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -129,6 +130,7 @@ LOGIN_REDIRECT_URL = "uploads"
 THUMB_SIZE = 100, 100
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 
 def read_admin_tuple_from_str(value):
     """Convert "Name1,mail1;Name2,mail2" to
